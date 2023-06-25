@@ -6,6 +6,7 @@ stages:
 
 test:
   stage: "test"
+  image: "eclipse-temurin:17"
   script:
     - ./gradlew koverXmlReport
     - ./gradlew koverHtmlReport
