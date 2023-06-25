@@ -15,7 +15,8 @@ test:
     - ./gradlew ${GRADLE_CLI_OPTS} koverXmlReport
     - ./gradlew ${GRADLE_CLI_OPTS} koverHtmlReport
     # Until kover can print the coverage directly: The 5th value is *hopefully* the instruction coverage
-    - grep -o -P '\d+((.|,)\d+)?%' build/reports/kover/html/index.html | sed -n '5p'
+    - echo "Coverage $(grep -o -P '\d+((.|,)\d+)?%' build/reports/kover/html/index.html | sed -n '5p')"
+  coverage: "/Coverage *?([0-9]{1,3}.?[0-9]{0,3})%/"
   cache:
     key: "gradle"
     paths:
