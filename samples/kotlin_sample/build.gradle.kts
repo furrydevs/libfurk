@@ -10,10 +10,13 @@ version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("file://${projectDir}//../../build/repo")
+    }
 }
 
 dependencies {
-    implementation(project(":lib"))
+    implementation("fur.token:libfurk:0.0.1-SNAPSHOT")
 }
 
 // What is used in gradle
@@ -27,7 +30,7 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("fur.token.libfurk.kotlinexample.KotlinSampleKt")
+    mainClass.set("fur.token.libfurk.kotlinsample.KotlinSampleKt")
 }
 
 // Put the directly executable distribution under build/install

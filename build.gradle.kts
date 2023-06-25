@@ -2,8 +2,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.8.22"
-//    `maven-publish`
+    `maven-publish`
     `java-library`
+
+    id("org.jetbrains.kotlinx.kover") version "0.7.1"
 }
 
 group = "fur.token"
@@ -11,6 +13,19 @@ version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            url = uri("file://${buildDir}/repo")
+        }
+    }
 }
 
 //publishing {
