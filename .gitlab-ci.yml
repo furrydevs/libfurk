@@ -1,0 +1,26 @@
+stages:
+  - "build"
+  - "test"
+  - "visualize"
+  - "deploy"
+
+test:
+  stage: "test"
+  script:
+    - ./gradlew koverXmlReport
+    - ./gradlew koverHtmlReport
+  artifacts:
+    paths: [ "build/reports" ]
+    reports:
+      junit: [ "build/junit-xml/*Test.xml" ]
+
+visualize:
+  stage: "visualize"
+  image: "haynes/jacoco2cobertura:1.0.9"
+  script:
+    - 'python /opt/cover2cover.py build/reports/kover/report.xml $CI_PROJECT_DIR/src/main/kotlin/ > coverage.xml'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: "cobertura"
+        path: "coverage.xml"
