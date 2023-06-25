@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    // When adding it to your own project, replace '+' with the latest version
     implementation("fur.token:libfurk:+")
 }
 
