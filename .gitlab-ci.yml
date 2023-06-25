@@ -4,12 +4,24 @@ stages:
   - "visualize"
   - "deploy"
 
+variables:
+  GRADLE_USER_HOME: "${CI_PROJECT_DIR}/.gradle"  # cache can only be inside project dir
+  GRADLE_CLI_OPTS: "--no-daemon --console=plain" # avoid console spam
+
 test:
   stage: "test"
   image: "eclipse-temurin:17"
   script:
-    - ./gradlew koverXmlReport
-    - ./gradlew koverHtmlReport
+    - ./gradlew ${GRADLE_CLI_OPTS} koverXmlReport
+    - ./gradlew ${GRADLE_CLI_OPTS} koverHtmlReport
+    # Until kover can print the coverage directly: The 5th value is *hopefully* the instruction coverage
+    - grep -o -P '\d+((.|,)\d+)?%' build/reports/kover/html/index.html | sed -n '5p'
+  cache:
+    key: "gradle"
+    paths:
+      - ".gradle/wrapper"
+      - ".gradle/caches"
+
   artifacts:
     paths: [ "build/reports" ]
     reports:
