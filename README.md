@@ -1,15 +1,15 @@
-# libfurk
+# libFurk
 
 Library to interact with Furcadia.
 
 Note: This code is in very early development and not usable for anything right now!
 
-This repository is originaly hosted at https://gitlab.com/furrydevs/libfurk/ and mirrored to other locations. If you want to report issues or other things, please do so on GitLab.
+This repository is originally hosted at https://gitlab.com/furrydevs/libfurk/ and mirrored to other locations. If you want to report issues or other things, please do so on GitLab.
 
 ## Roadmap
 
 - Simple API to interact with Furcadia
-- Convience methods for various interactions
+- Convince methods for various interactions
 - Native library and other artifacts that can be included in other projects (WASM, etc.)
 
 ## Contributing
