@@ -1,4 +1,4 @@
-package fur.token.libfurk.kotlinexample
+package fur.token.libfurk.kotlinsample
 
 import fur.token.libfurk.FurkCommand
 import fur.token.libfurk.LibFurk

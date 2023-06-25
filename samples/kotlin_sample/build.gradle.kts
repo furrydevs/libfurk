@@ -27,7 +27,7 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("fur.token.libfurk.kotlinexample.KotlinExampleKt")
+    mainClass.set("fur.token.libfurk.kotlinexample.KotlinSampleKt")
 }
 
 // Put the directly executable distribution under build/install
