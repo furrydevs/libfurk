@@ -1,0 +1,40 @@
+stages:
+  - "build"
+  - "test"
+  - "visualize"
+  - "deploy"
+
+variables:
+  GRADLE_USER_HOME: "${CI_PROJECT_DIR}/.gradle"  # cache can only be inside project dir
+  GRADLE_CLI_OPTS: "--no-daemon --console=plain" # avoid console spam
+
+test:
+  stage: "test"
+  image: "eclipse-temurin:17"
+  script:
+    - ./gradlew ${GRADLE_CLI_OPTS} koverXmlReport
+    - ./gradlew ${GRADLE_CLI_OPTS} koverHtmlReport
+    # Until kover can print the coverage directly: The 5th value is *hopefully* the instruction coverage
+    - echo "Coverage $(grep -o -P '\d+((.|,)\d+)?%' build/reports/kover/html/index.html | sed -n '5p')"
+  coverage: "/Coverage *?([0-9]{1,3}.?[0-9]{0,3})%/"
+  cache:
+    key: "gradle"
+    paths:
+      - ".gradle/wrapper"
+      - ".gradle/caches"
+
+  artifacts:
+    paths: [ "build/reports" ]
+    reports:
+      junit: [ "build/junit-xml/*Test.xml" ]
+
+visualize:
+  stage: "visualize"
+  image: "haynes/jacoco2cobertura:1.0.9"
+  script:
+    - 'python /opt/cover2cover.py build/reports/kover/report.xml $CI_PROJECT_DIR/src/main/kotlin/ > coverage.xml'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: "cobertura"
+        path: "coverage.xml"
