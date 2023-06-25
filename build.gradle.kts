@@ -28,20 +28,8 @@ publishing {
     }
 }
 
-//publishing {
-//    publications {
-//        create<MavenPublication>("mavenJava") {
-//            groupId = groupId
-//            artifactId = rootProject.name
-//            version = version
-//            from(components["java"])
-//        }
-//    }
-//}
-
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-
 
     testImplementation("io.kotest:kotest-runner-junit5:5.6.2")
     testImplementation("io.kotest:kotest-assertions-core:5.6.2")
@@ -59,4 +47,8 @@ kotlin {
 // What is targeted
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
+}
+
+tasks.named("build").configure {
+    finalizedBy("publish")
 }

@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("fur.token:libfurk:0.0.1-SNAPSHOT")
+    implementation("fur.token:libfurk:+")
 }
 
 // What is used in gradle
